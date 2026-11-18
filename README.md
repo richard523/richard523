@@ -61,6 +61,7 @@ AI/LLM: RAG pipelines, embeddings &amp; semantic search, MCP servers, OpenAI / M
 ---
 
 <p align="center">
-  <i>Also on GitHub: small Linux desktop/audio tools (PipeWire, GTK4, headset utilities) and DSA practice —
-  browse all <a href="https://github.com/richard523?tab=repositories">85 repos</a>.</i>
+  <i>Personal tinkering has its own page:
+  <a href="https://github.com/richard523/richard523/blob/main/CACHYOS.md">Linux / CachyOS desktop &amp; audio tools, gaming notes, DSA practice</a> —
+  or browse all <a href="https://github.com/richard523?tab=repositories">repos</a>.</i>
 </p>
