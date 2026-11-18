@@ -5,15 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hello World</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
       min-height: 100vh;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      background: linear-gradient(180deg, #0b1d3a 0%, #16213e 55%, #0f3460 100%);
       color: #eaeaea;
     }
     h1 {
@@ -24,8 +29,14 @@
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
+      z-index: 2;
     }
-    p { margin-top: 1rem; font-size: 1.25rem; color: #a0a0c0; }
+    p {
+      margin-top: 1rem;
+      font-size: 1.25rem;
+      color: #a0a0c0;
+      z-index: 2;
+    }
     button {
       margin-top: 2rem;
       padding: 0.75rem 2rem;
@@ -37,16 +48,112 @@
       border-radius: 8px;
       cursor: pointer;
       transition: transform 0.15s ease, background 0.15s ease;
+      z-index: 2;
     }
-    button:hover { background: #ff5c78; transform: translateY(-2px); }
-    #counter { margin-top: 1rem; font-size: 0.95rem; color: #6a6a8a; }
+    button:hover {
+      background: #ff5c78;
+      transform: translateY(-2px);
+    }
+    #counter {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #6a6a8a;
+      z-index: 2;
+    }
+
+    /* --- aquarium --- */
+    .fish-track {
+      position: fixed;
+      left: 0;
+      z-index: 1;
+      pointer-events: none;
+      animation: swim linear infinite;
+    }
+    .f1 { top: 22%; animation-duration: 17s; }
+    .f2 { top: 55%; animation-duration: 24s; animation-delay: -9s; }
+    .f3 { top: 78%; animation-duration: 21s; animation-delay: -15s; }
+
+    @keyframes swim {
+      0%    { transform: translateX(-160px) scaleX(1); }
+      49.9% { transform: translateX(calc(100vw + 40px)) scaleX(1); }
+      50%   { transform: translateX(calc(100vw + 40px)) scaleX(-1); }
+      99.9% { transform: translateX(-160px) scaleX(-1); }
+      100%  { transform: translateX(-160px) scaleX(1); }
+    }
+
+    .fish {
+      position: relative;
+      width: 90px;
+      height: 46px;
+      background: linear-gradient(180deg, #ffb347, #ff7b54);
+      border-radius: 60% 70% 70% 60% / 70% 70% 60% 60%;
+      animation: bob 2.8s ease-in-out infinite;
+    }
+    .f2 .fish { background: linear-gradient(180deg, #6ec6ff, #3d8bfd); width: 70px; height: 36px; }
+    .f3 .fish { background: linear-gradient(180deg, #b388ff, #7c4dff); width: 110px; height: 56px; }
+
+    .tail {
+      position: absolute;
+      left: -24px;
+      top: 50%;
+      width: 0;
+      height: 0;
+      border-top: 13px solid transparent;
+      border-bottom: 13px solid transparent;
+      border-right: 26px solid #ff7b54;
+      transform-origin: right center;
+      animation: wag 0.6s ease-in-out infinite;
+    }
+    .f2 .tail { border-right-color: #3d8bfd; border-top-width: 10px; border-bottom-width: 10px; border-right-width: 20px; left: -19px; }
+    .f3 .tail { border-right-color: #7c4dff; border-top-width: 16px; border-bottom-width: 16px; border-right-width: 32px; left: -30px; }
+
+    @keyframes wag {
+      0%, 100% { transform: translateY(-50%) rotate(0deg); }
+      50% { transform: translateY(-50%) rotate(18deg); }
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    .eye {
+      position: absolute;
+      right: 16px;
+      top: 12px;
+      width: 8px;
+      height: 8px;
+      background: #10203a;
+      border-radius: 50%;
+    }
+    .f2 .eye { right: 12px; top: 9px; width: 7px; height: 7px; }
+    .f3 .eye { right: 20px; top: 15px; }
+
+    .bubble {
+      position: fixed;
+      bottom: -24px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7), rgba(255,255,255,0.15));
+      z-index: 1;
+      pointer-events: none;
+      animation: rise linear infinite;
+    }
+    @keyframes rise {
+      0%   { transform: translateY(0) translateX(0); opacity: 0; }
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(-110vh) translateX(24px); opacity: 0; }
+    }
   </style>
 </head>
 <body>
   <h1>Hello, World!</h1>
-  <p>Your first app is up and running.</p>
+  <p>Your first app is up and running — and there's a fish.</p>
   <button id="greetBtn">Click me</button>
   <span id="counter">Clicked 0 times</span>
+
+  <div class="fish-track f1"><div class="fish"><div class="tail"></div><div class="eye"></div></div></div>
+  <div class="fish-track f2"><div class="fish"><div class="tail"></div><div class="eye"></div></div></div>
+  <div class="fish-track f3"><div class="fish"><div class="tail"></div><div class="eye"></div></div></div>
 
   <script>
     let count = 0;
@@ -56,6 +163,19 @@
       count++;
       counter.textContent = 'Clicked ' + count + (count === 1 ? ' time' : ' times');
     });
+
+    // spawn bubbles
+    for (let i = 0; i < 14; i++) {
+      const b = document.createElement('div');
+      b.className = 'bubble';
+      const size = 4 + Math.random() * 12;
+      b.style.width = size + 'px';
+      b.style.height = size + 'px';
+      b.style.left = Math.random() * 100 + 'vw';
+      b.style.animationDuration = 6 + Math.random() * 8 + 's';
+      b.style.animationDelay = -Math.random() * 12 + 's';
+      document.body.appendChild(b);
+    }
   </script>
 </body>
 </html>
